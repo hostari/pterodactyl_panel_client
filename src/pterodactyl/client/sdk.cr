@@ -43,20 +43,20 @@ module Pterodactyl
 
     def assign_allocation(server : Models::ClientServer) : Models::Allocation
       res = @client.post build_path("/servers/#{server.identifier}/network/allocations")
-      allocation = Data(Models::Allocation).from_json res.body
+      allocation = Models::Data(Models::Allocation).from_json res.body
       allocation.attributes
     end
 
     def set_allocation_notes(server : Models::ClientServer, notes : String, allocation_id : Int64) : Models::Allocation
       payload = {"notes" => notes}
       res = @client.post base_path("/servers/#{server.identifier}/network/allocations/#{allocation_id}"), payload.to_json
-      allocation = Data(Models::Allocation).from_json res.body
+      allocation = Models::Data(Models::Allocation).from_json res.body
       allocation.attributes
     end
 
     def set_primary_allocation(server : Models::ClientServer, allocation_id : Int64) : Models::Allocation
       res = @client.post base_path("/servers/#{server.identifier}/network/allocations/#{allocation_id}/primary")
-      allocation = Data(Models::Allocation).from_json res.body
+      allocation = Models::Data(Models::Allocation).from_json res.body
       allocation.attributes
     end
 
@@ -70,7 +70,7 @@ module Pterodactyl
 
     def get_backups(server : Models::ClientServer) : Models::Backup
       res = @client.get build_path("/servers/#{server.identifier}/backups")
-      backups = APIResponse(Models::Backup).from_json res.body
+      backups = Models::APIResponse(Models::Backup).from_json res.body
       backups.data.map &.attributes
     end
 
@@ -88,7 +88,7 @@ module Pterodactyl
 
     def backup_download_url(server : Models::ClientServer, backup_uuid : String) : String
       res = @client.get build_path("/servers/#{server.identifier}/backups/#{backup_uuid}/download")
-      backup = Data(Models::BackupDownloadable).from_json res.body
+      backup = Models::Data(Models::BackupDownloadable).from_json res.body
       backup.url
     end
 
@@ -107,13 +107,13 @@ module Pterodactyl
 
     def websocket_credentials(server : Models::ClientServer) : Models::WebsocketCredentials
       res = @client.get build_path("/servers/#{server.identifier}/websocket")
-      creds = APIResponse(Models::WebsocketCredentials).from_json res.body
+      creds = Models::APIResponse(Models::WebsocketCredentials).from_json res.body
       creds.data
     end
 
     def get_server_resource_usage(server_identifier : String)
       res = @client.get build_path("/servers/#{server_identifier}/resources")
-      usage = Data(Models::ResourceUsage).from_json res.body
+      usage = Models::Data(Models::ResourceUsage).from_json res.body
       usage.attributes
     end
 

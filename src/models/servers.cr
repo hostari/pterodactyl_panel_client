@@ -23,9 +23,10 @@ module Pterodactyl::Models
     getter id : Int64
     getter external_id : Int64?
     getter suspended : Bool
-    getter user : Int64
-    getter node : Int64
-    getter allocation : Int64
+    @[JSON::Field(key: "node")]
+    getter node_id : Int64
+    @[JSON::Field(key: "allocation")]
+    getter allocation_id : Int64
     @[JSON::Field(key: "nest")]
     getter nest_id : Int64
     @[JSON::Field(key: "egg")]

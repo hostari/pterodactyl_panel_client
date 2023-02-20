@@ -38,4 +38,14 @@ describe Pterodactyl::ApplicationSdk do
     egg.author.should eq("parker@pterodactyl.io")
     egg.should be_a(Pterodactyl::Models::Egg)
   end
+
+  it "retrieves allocations given a node" do
+    WebMockWrapper.application_stub(:get, "get_app_allocations.json", "/nodes/1/allocations")
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    allocs = app.get_allocations(1)
+
+    allocs[0].port.should eq(40051)
+    allocs.should be_a(Array(Pterodactyl::Models::AppAllocation))
+  end
 end

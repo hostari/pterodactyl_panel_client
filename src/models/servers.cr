@@ -26,8 +26,12 @@ module Pterodactyl::Models
     getter user : Int64
     getter node : Int64
     getter allocation : Int64
-    getter egg : Int64
-    getter user : Int64
+    @[JSON::Field(key: "nest")]
+    getter nest_id : Int64
+    @[JSON::Field(key: "egg")]
+    getter egg_id : Int64
+    @[JSON::Field(key: "user")]
+    getter user_id : Int64
     # getter pack : Int64 # NOTE: need more info on what a pack is
     getter container : Container
     getter updated_at : Time

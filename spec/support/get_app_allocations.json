@@ -1,0 +1,125 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 1,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40051,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 2,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40052,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 3,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40053,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 4,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40054,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 5,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40055,
+        "notes": null,
+        "assigned": true
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 6,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40056,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 7,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40057,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 8,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40058,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 9,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40059,
+        "notes": null,
+        "assigned": false
+      }
+    },
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 10,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 40060,
+        "notes": null,
+        "assigned": false
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "total": 50,
+      "count": 50,
+      "per_page": 50,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": {}
+    }
+  }
+}

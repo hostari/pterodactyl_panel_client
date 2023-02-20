@@ -131,4 +131,10 @@ class Pterodactyl::ApplicationSdk
     result = @client.get(build_path("/nests/#{nest_id}/eggs/#{egg_id}"))
     Models::Data(Models::Egg).from_json(result.body).attributes
   end
+
+  def get_allocations(node_id : Int64 | Int32 | String)
+    result = @client.get(build_path("/nodes/#{node_id}/allocations"))
+    allocs = Models::APIResponse(Models::AppAllocation).from_json result.body
+    allocs.data.map &.attributes
+  end
 end

@@ -36,7 +36,7 @@ module Pterodactyl
 
     def get_allocations : Array(Models::Allocation)
       res = @client.get build_path("/servers/#{server.identifier}/network/allocations")
-      allocations = Models::APIResponse(Models::Allocations).from_json res.body
+      allocations = Models::APIResponse(Models::ClientAllocation).from_json res.body
 
       allocations.data.map &.attributes
     end
@@ -122,9 +122,9 @@ module Pterodactyl
       @client.post build_path("/servers/#{server.identifier}/command"), payload.to_json
     end
 
-    def change_server_state(server : Models::ClientServer, signal : String)
+    def change_server_state(server_identifier : String, signal : String)
       payload = {"signal" => signal}
-      @client.post build_path("/servers/#{server.identifier}/power"), payload.to_json
+      @client.post build_path("/servers/#{server_identifier}/power"), payload.to_json
     end
 
     private def base_path

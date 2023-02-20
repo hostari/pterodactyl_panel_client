@@ -3,7 +3,6 @@ private module Server
     getter uuid : String
     getter identifier : String
     getter name : String
-    getter node : String
     getter description : String
     getter limits : Limits
     getter feature_limits : FeatureLimits
@@ -14,6 +13,7 @@ module Pterodactyl::Models
   struct ClientServer
     include JSON::Serializable
     include Server
+    getter node : String
   end
 
   struct ApplicationServer

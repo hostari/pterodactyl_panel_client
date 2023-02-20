@@ -18,7 +18,7 @@ class Pterodactyl::ApplicationSdk
     last_name : String
   )
     result = @client.post(build_path("/users"), {email: email, username: username, first_name: first_name, last_name: last_name}.to_json)
-    Models::APIResponse(Models::User).from_json(result.body).attributes
+    Models::Data(Models::User).from_json(result.body).attributes
   end
 
   def list_locations : Array(Models::Location)

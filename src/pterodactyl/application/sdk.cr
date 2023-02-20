@@ -18,7 +18,13 @@ class Pterodactyl::ApplicationSdk
     last_name : String
   )
     result = @client.post(build_path("/users"), {email: email, username: username, first_name: first_name, last_name: last_name}.to_json)
-    Models::Data(Models::User).from_json(result.body).attributes
+    normalized_data = Models::Data(Models::User).from_json(result.body)
+    user = normalized_data.attributes
+    if meta = normalized_data.meta
+      user.client_api_key = meta["token"].as_s
+    end
+
+    user
   end
 
   def list_locations : Array(Models::Location)

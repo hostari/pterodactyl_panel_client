@@ -14,5 +14,6 @@ module Pterodactyl::Models
     getter two_factor : Bool
     getter created_at : Time
     getter updated_at : Time
+    property client_api_key : String?
   end
 end

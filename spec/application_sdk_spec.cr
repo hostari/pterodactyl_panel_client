@@ -15,6 +15,7 @@ describe Pterodactyl::ApplicationSdk do
     )
 
     user.username.should eq("exampleuser")
+    user.client_api_key.should eq("ptlc_tOPizQcMNwm4BpEMloVfU4JQVsoSD5NH8k3qDVyTluT")
     user.should be_a(Pterodactyl::Models::User)
   end
 

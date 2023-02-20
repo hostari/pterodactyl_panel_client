@@ -2,6 +2,22 @@ require "./spec_helper"
 
 describe Pterodactyl::ApplicationSdk do
   host = "137.184.187.126"
+
+  it "succesfully creates a user" do
+    WebMockWrapper.application_stub(:post, "create_user_success.json", "/users")
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    user = app.create_user(
+      email: "example10@example.com",
+      username: "exampleuser",
+      first_name: "Example",
+      last_name: "User"
+    )
+
+    user.username.should eq("exampleuser")
+    user.should be_a(Pterodactyl::Models::User)
+  end
+
   it "get list of eggs" do
     WebMockWrapper.application_stub(:get, "get_egg_list.json", "/nests/1/eggs")
 

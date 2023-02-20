@@ -1,0 +1,21 @@
+{
+  "object": "user",
+  "attributes": {
+    "id": 8,
+    "external_id": null,
+    "uuid": "1eb7d2ed-3db0-4842-8cc3-e10657015a26",
+    "username": "exampleuser",
+    "email": "example10@example.com",
+    "first_name": "Example",
+    "last_name": "User",
+    "language": "en",
+    "root_admin": false,
+    "2fa": false,
+    "created_at": "2023-02-20T03:00:05+00:00",
+    "updated_at": "2023-02-20T03:00:05+00:00"
+  },
+  "meta": {
+    "resource": "http://137.184.187.126/api/application/users/8",
+    "token": "ptlc_tOPizQcMNwm4BpEMloVfU4JQVsoSD5NH8k3qDVyTluT"
+  }
+}

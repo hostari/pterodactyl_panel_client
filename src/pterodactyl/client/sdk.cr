@@ -111,8 +111,8 @@ module Pterodactyl
       creds.data
     end
 
-    def get_server_resource_usage(server : Models::ClientServer)
-      res = @client.get build_path("/servers/#{server.identifier}/resources")
+    def get_server_resource_usage(server_identifier : String)
+      res = @client.get build_path("/servers/#{server_identifier}/resources")
       usage = Data(Models::ResourceUsage).from_json res.body
       usage.attributes
     end

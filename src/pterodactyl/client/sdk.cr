@@ -34,8 +34,8 @@ module Pterodactyl
       end
     end
 
-    def get_allocations : Array(Models::Allocation)
-      res = @client.get build_path("/servers/#{server.identifier}/network/allocations")
+    def get_allocations(identifier : String) : Array(Models::Allocation)
+      res = @client.get build_path("/servers/#{identifier}/network/allocations")
       allocations = Models::APIResponse(Models::ClientAllocation).from_json res.body
 
       allocations.data.map &.attributes

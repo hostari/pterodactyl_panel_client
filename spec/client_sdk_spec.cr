@@ -46,4 +46,15 @@ describe Pterodactyl::ClientSdk do
 
     user.should be_truthy
   end
+
+  it "get server resource usage" do
+    WebMockWrapper.client_stub(:get, "resource_usage.json", "/servers/78095333/resources")
+
+    client = Pterodactyl::ClientSdk.new(host, "client_token")
+    usage = client.get_server_resource_usage("78095333")
+
+    usage.current_state.should eq("running")
+    usage.resources.memory_bytes.should eq(2509082624)
+    usage.should be_a(Pterodactyl::Models::ResourceUsage)
+  end
 end

@@ -15,7 +15,7 @@ describe Pterodactyl::ApplicationSdk do
     )
 
     user.username.should eq("exampleuser")
-    user.client_api_key.should eq("ptlc_tOPizQcMNwm4BpEMloVfU4JQVsoSD5NH8k3qDVyTluT")
+    user.client_api_key.should eq("api_token_1234")
     user.should be_a(Pterodactyl::Models::User)
   end
 
@@ -38,6 +38,26 @@ describe Pterodactyl::ApplicationSdk do
 
     egg.author.should eq("parker@pterodactyl.io")
     egg.should be_a(Pterodactyl::Models::Egg)
+  end
+
+  it "retrieves list of nodes" do
+    WebMockWrapper.application_stub(:get, "get_nodes.json", "/nodes")
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    nodes = app.get_nodes
+
+    nodes[0].uuid.should eq("5b5fd79b-9bbc-4b4d-ac40-48dfa501a0c9")
+    nodes.should be_a(Array(Pterodactyl::Models::Node))
+  end
+
+  it "retrieves a node" do
+    WebMockWrapper.application_stub(:get, "get_node.json", "/nodes/1")
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    node = app.get_node(1)
+
+    node.uuid.should eq("5b5fd79b-9bbc-4b4d-ac40-48dfa501a0c9")
+    node.should be_a(Pterodactyl::Models::Node)
   end
 
   it "retrieves allocations given a node" do

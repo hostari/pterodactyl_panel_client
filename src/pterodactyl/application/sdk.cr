@@ -138,6 +138,21 @@ class Pterodactyl::ApplicationSdk
     Models::Data(Models::Egg).from_json(result.body).attributes
   end
 
+  def get_nodes(params : Array(NodeParam) = [] of NodeParam)
+    param_str = ""
+    if !params.empty?
+      param_str = "?include=" + params.map(&.to_str).join(",")
+    end
+    res = @client.get build_path("/nodes#{param_str}")
+    model = Models::APIResponse(Models::Node).from_json res.body
+    model.data.map &.attributes
+  end
+
+  def get_node(node_id : Int64 | Int32 | String)
+    res = @client.get build_path("/nodes/#{node_id}")
+    Models::Data(Models::Node).from_json(res.body).attributes
+  end
+
   def get_allocations(node_id : Int64 | Int32 | String)
     result = @client.get(build_path("/nodes/#{node_id}/allocations"))
     allocs = Models::APIResponse(Models::AppAllocation).from_json result.body

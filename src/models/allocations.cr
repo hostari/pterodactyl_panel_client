@@ -3,6 +3,7 @@ module Pterodactyl::Models
     include JSON::Serializable
 
     getter id : Int64
+    getter ip : String
     getter ip_alias : String
     getter port : Int64
     getter notes : String?

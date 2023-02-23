@@ -1,0 +1,16 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 4,
+        "ip": "209.236.114.150",
+        "ip_alias": null,
+        "port": 40054,
+        "notes": null,
+        "is_default": true
+      }
+    }
+  ]
+}

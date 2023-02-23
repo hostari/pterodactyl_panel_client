@@ -47,6 +47,16 @@ describe Pterodactyl::ClientSdk do
     user.should be_truthy
   end
 
+  it "retrieve server allocations" do
+    WebMockWrapper.client_stub(:get, "get_client_allocations.json", "/servers/78095333/network/allocations")
+
+    client = Pterodactyl::ClientSdk.new(host, "client_token")
+    allocs = client.get_allocations("78095333")
+
+    allocs[0].ip.should eq("209.236.114.150")
+    allocs.should be_a(Array(Pterodactyl::Models::ClientAllocation))
+  end
+
   it "get server resource usage" do
     WebMockWrapper.client_stub(:get, "resource_usage.json", "/servers/78095333/resources")
 

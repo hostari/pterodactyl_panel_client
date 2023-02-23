@@ -4,7 +4,7 @@ module Pterodactyl::Models
 
     getter id : Int64
     getter ip : String
-    getter ip_alias : String
+    getter ip_alias : String?
     getter port : Int64
     getter notes : String?
     getter is_default : Bool

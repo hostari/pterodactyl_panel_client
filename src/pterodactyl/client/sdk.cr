@@ -34,29 +34,29 @@ module Pterodactyl
       end
     end
 
-    def get_allocations(identifier : String) : Array(Models::Allocation)
+    def get_allocations(identifier : String) : Array(Models::ClientAllocation)
       res = @client.get build_path("/servers/#{identifier}/network/allocations")
       allocations = Models::APIResponse(Models::ClientAllocation).from_json res.body
 
       allocations.data.map &.attributes
     end
 
-    def assign_allocation(server : Models::ClientServer) : Models::Allocation
+    def assign_allocation(server : Models::ClientServer) : Models::ClientAllocation
       res = @client.post build_path("/servers/#{server.identifier}/network/allocations")
-      allocation = Models::Data(Models::Allocation).from_json res.body
+      allocation = Models::Data(Models::ClientAllocation).from_json res.body
       allocation.attributes
     end
 
-    def set_allocation_notes(server : Models::ClientServer, notes : String, allocation_id : Int64) : Models::Allocation
+    def set_allocation_notes(server : Models::ClientServer, notes : String, allocation_id : Int64) : Models::ClientAllocation
       payload = {"notes" => notes}
       res = @client.post base_path("/servers/#{server.identifier}/network/allocations/#{allocation_id}"), payload.to_json
-      allocation = Models::Data(Models::Allocation).from_json res.body
+      allocation = Models::Data(Models::ClientAllocation).from_json res.body
       allocation.attributes
     end
 
-    def set_primary_allocation(server : Models::ClientServer, allocation_id : Int64) : Models::Allocation
+    def set_primary_allocation(server : Models::ClientServer, allocation_id : Int64) : Models::ClientAllocation
       res = @client.post base_path("/servers/#{server.identifier}/network/allocations/#{allocation_id}/primary")
-      allocation = Models::Data(Models::Allocation).from_json res.body
+      allocation = Models::Data(Models::ClientAllocation).from_json res.body
       allocation.attributes
     end
 

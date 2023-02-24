@@ -41,15 +41,6 @@ module Pterodactyl::Models
     getter created_at : Time
   end
 
-  struct Relationship
-    include JSON::Serializable
-
-    # @[JSON::Field(root: "data")]
-    # getter allocations : #Array(Data(ClientAllocation))
-    getter variables : JSON::Any
-    getter egg : JSON::Any
-  end
-
   struct Container
     include JSON::Serializable
 

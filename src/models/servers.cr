@@ -14,6 +14,8 @@ module Pterodactyl::Models
     include JSON::Serializable
     include Server
     getter node : String
+    @[JSON::Field(root: "variables", key: "relationships", converter: Pterodactyl::Models::EggVariable::EggConverter)]
+    getter variables : Array(EggVariable)
   end
 
   struct ApplicationServer
@@ -37,6 +39,15 @@ module Pterodactyl::Models
     getter container : Container
     getter updated_at : Time
     getter created_at : Time
+  end
+
+  struct Relationship
+    include JSON::Serializable
+
+    # @[JSON::Field(root: "data")]
+    # getter allocations : #Array(Data(ClientAllocation))
+    getter variables : JSON::Any
+    getter egg : JSON::Any
   end
 
   struct Container

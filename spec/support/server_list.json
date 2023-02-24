@@ -55,6 +55,47 @@
                 }
               }
             ]
+          },
+          "variables": {
+            "object": "list",
+            "data": [
+              {
+                "object": "egg_variable",
+                "attributes": {
+                  "name": "Server Name",
+                  "description": "Name that appears in server browser.",
+                  "env_variable": "SERVER_NAME",
+                  "default_value": "My Server",
+                  "server_value": "My First Server 7WMlx",
+                  "is_editable": true,
+                  "rules": "required|string|max:60"
+                }
+              },
+              {
+                "object": "egg_variable",
+                "attributes": {
+                  "name": "Server Password",
+                  "description": "Server password.",
+                  "env_variable": "PASSWORD",
+                  "default_value": "secret",
+                  "server_value": "valheim123",
+                  "is_editable": true,
+                  "rules": "required|string|min:5|max:20"
+                }
+              },
+              {
+                "object": "egg_variable",
+                "attributes": {
+                  "name": "World Name",
+                  "description": "Name to load if switching between multiple saved worlds.",
+                  "env_variable": "WORLD",
+                  "default_value": "Dedicated",
+                  "server_value": "World1",
+                  "is_editable": true,
+                  "rules": "required|string|max:20"
+                }
+              }
+            ]
           }
         }
       }

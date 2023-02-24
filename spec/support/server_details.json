@@ -18,13 +18,20 @@
       "io": 500,
       "cpu": 0
     },
+    "invocation": "./valheim_server.x86_64 -nographics -batchmode -name \"My First Server 7WMlx\" -port 40054 -world \"World1\" -password \"valheim123\" -public 1 -saveinterval 1800 -backups 4 -backupshort 7200 -backuplong 43200 $( [[ 0 -eq 1 ]] && echo \" -crossplay \") > >(sed -uE \"[hidden]\") & trap \"[hidden]\" 15; wait $!",
+    "docker_image": "ghcr.io/parkervcp/games:valheim",
+    "egg_features": [
+      "steam_disk_space"
+    ],
     "feature_limits": {
       "databases": 5,
       "allocations": 5,
       "backups": 2
     },
+    "status": null,
     "is_suspended": false,
     "is_installing": false,
+    "is_transferring": false,
     "relationships": {
       "allocations": {
         "object": "list",
@@ -39,19 +46,56 @@
               "notes": null,
               "is_default": true
             }
+          }
+        ]
+      },
+      "variables": {
+        "object": "list",
+        "data": [
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "Server Name",
+              "description": "Name that appears in server browser.",
+              "env_variable": "SERVER_NAME",
+              "default_value": "My Server",
+              "server_value": "My First Server 7WMlx",
+              "is_editable": true,
+              "rules": "required|string|max:60"
+            }
           },
           {
-            "object": "allocation",
+            "object": "egg_variable",
             "attributes": {
-              "id": 2,
-              "ip": "45.86.168.218",
-              "ip_alias": null,
-              "port": 25566,
-              "notes": "Votifier",
-              "is_default": false
+              "name": "Server Password",
+              "description": "Server password.",
+              "env_variable": "PASSWORD",
+              "default_value": "secret",
+              "server_value": "valheim123",
+              "is_editable": true,
+              "rules": "required|string|min:5|max:20"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "name": "World Name",
+              "description": "Name to load if switching between multiple saved worlds.",
+              "env_variable": "WORLD",
+              "default_value": "Dedicated",
+              "server_value": "World1",
+              "is_editable": true,
+              "rules": "required|string|max:20"
             }
           }
         ]
+      },
+      "egg": {
+        "object": "egg",
+        "attributes": {
+          "uuid": "31eb821e-35f5-47fc-8d6e-e53166ae9592",
+          "name": "Vanilla Valheim"
+        }
       }
     }
   },

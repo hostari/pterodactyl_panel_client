@@ -1,5 +1,5 @@
 module Pterodactyl
-    class CreateServerRequest
+  class CreateServerRequest
     property name : String
     property user : Int64
     property egg : Int64

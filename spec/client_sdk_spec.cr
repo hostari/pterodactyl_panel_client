@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 describe Pterodactyl::ClientSdk do
-  host = "137.184.187.126"
+  host = "http://137.184.187.126"
   it "retrieve account details" do
     WebMockWrapper.client_stub(:get, "account_details.json", "/account")
 

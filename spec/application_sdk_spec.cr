@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 describe Pterodactyl::ApplicationSdk do
-  host = "137.184.187.126"
+  host = "http://137.184.187.126"
 
   it "succesfully creates a user" do
     WebMockWrapper.application_stub(:post, "create_user_success.json", "/users")

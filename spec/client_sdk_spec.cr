@@ -33,19 +33,13 @@ describe Pterodactyl::ClientSdk do
     server.should be_a(Pterodactyl::Models::ClientServer)
   end
 
-  it "returns an error with invalid email address" do
+  it "raises an error with invalid email address" do
     WebMockWrapper.client_stub(:put, "update_email_error.json", "/account/email", 422)
 
     client = Pterodactyl::ClientSdk.new(host, "client_token")
-    user = client.update_email("invalidemail")
-
-    if error = user
-      error.error_type.should eq("ValidationException")
-      error.detail.should eq("The email must be a valid email address.")
-      error.should be_a(Pterodactyl::Models::Error)
+    expect_raises(Pterodactyl::APIError, /The email must be a valid email address/) do
+      client.update_email("invalidemail")
     end
-
-    user.should be_truthy
   end
 
   it "retrieve server allocations" do

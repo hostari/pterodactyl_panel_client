@@ -1,0 +1,13 @@
+{
+  "errors": [
+    {
+      "code": "ValidationException",
+      "status": "422",
+      "detail": "The email must be a valid email address.",
+      "meta": {
+        "source_field": "email",
+        "rule": "email"
+      }
+    }
+  ]
+}

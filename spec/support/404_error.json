@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "code": "NotFoundHttpException",
+      "status": "404",
+      "detail": "The requested resource could not be found on the server."
+    }
+  ]
+}

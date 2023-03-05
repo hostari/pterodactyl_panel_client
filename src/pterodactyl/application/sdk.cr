@@ -25,29 +25,38 @@ class Pterodactyl::ApplicationSdk
     end
 
     user
+  rescue e : APIError
+    raise e
   end
 
   def list_locations : Array(Models::Location)
     result = @client.get(build_path("/locations"))
     locations = Models::APIResponse(Models::Location).from_json(result.body)
     locations.data.map &.attributes
+  rescue e : APIError
+    raise e
   end
 
   def get_location(id : Int32 | Int64 | String) : Models::Location
     result = @client.get(build_path("/locations/#{id}"))
     Models::Data(Models::Location).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def list_servers
     result = @client.get(build_path("/servers"))
     servers = Models::APIResponse(Models::ApplicationServer).from_json result.body
     servers.data.map &.attributes
+  rescue e : APIError
+    raise e
   end
 
-  def get_server(id : Int32 | Int64 | String)
+  def get_server(id : Int32 | Int64 | String) : Models::ApplicationServer
     result = @client.get(build_path("/servers/#{id}"))
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes
-    # TODO: handle 404
+  rescue e : APIError
+    raise e
   end
 
   def update_server_details(
@@ -56,9 +65,11 @@ class Pterodactyl::ApplicationSdk
     user : Int32,
     external_id : String? = nil,
     description : String? = nil
-  )
+  ) : Models::ApplicationServer
     result = @client.patch(build_path("/servers/#{id}/details"), body: {id: id.to_i64, name: name, user: user, external_id: external_id, description: description}.to_json)
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def update_server_build(
@@ -74,6 +85,8 @@ class Pterodactyl::ApplicationSdk
   )
     result = @client.patch(build_path("/servers/#{id}/build"), body: {id: id.to_i64, allocation: allocation, feature_limits: feature_limits, memory: memory, swap: swap, disk: disk, io: io, cpu: cpu, threads: threads}.to_json)
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def update_server_startup(
@@ -85,26 +98,36 @@ class Pterodactyl::ApplicationSdk
   )
     result = @client.patch(build_path("/servers/#{id}/startup"), body: {startup: startup, egg: egg, image: image, skip_scripts: skip_scripts, environment: environment}.to_json)
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def create_server(create_server_request : CreateServerRequest)
     result = @client.post(build_path("/servers"), body: create_server_request.as_json)
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def suspend_server(id : Int64 | Int32 | String)
     # returns a 204
     @client.post(build_path("/servers/#{id}/suspend"))
+  rescue e : APIError
+    raise e
   end
 
   def unsuspend_server(id : Int64 | Int32 | String)
     # returns a 204
     @client.post(build_path("/servers/#{id}/unsuspend"))
+  rescue e : APIError
+    raise e
   end
 
   def reinstall_server(id : Int64 | Int32 | String)
     # returns a 204
     @client.post(build_path("/servers/#{id}/reinstall"))
+  rescue e : APIError
+    raise e
   end
 
   def delete_server(id : Int64 | Int32 | String, force : Bool = false)
@@ -114,28 +137,38 @@ class Pterodactyl::ApplicationSdk
     else
       @client.delete(build_path("/server/#{id}/force"))
     end
+  rescue e : APIError
+    raise e
   end
 
   def list_nests : Array(Models::Nest)
     result = @client.get(build_path("/nests"))
     nests = Models::APIResponse(Models::Nest).from_json result.body
     nests.data.map &.attributes
+  rescue e : APIError
+    raise e
   end
 
   def get_nest(id : Int32 | Int64 | String)
     result = @client.get(build_path("/nests/#{id}"))
     Models::Data(Models::Nest).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def get_eggs(id : Int64 | Int32 | String)
     result = @client.get(build_path("/nests/#{id}/eggs"))
     eggs = Models::APIResponse(Models::Egg).from_json result.body
     eggs.data.map &.attributes
+  rescue e : APIError
+    raise e
   end
 
   def get_egg(egg_id : Int64 | Int32 | String, nest_id : Int32 | Int64 | String)
     result = @client.get(build_path("/nests/#{nest_id}/eggs/#{egg_id}"))
     Models::Data(Models::Egg).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def get_nodes(params : Array(NodeParam) = [] of NodeParam)
@@ -146,16 +179,22 @@ class Pterodactyl::ApplicationSdk
     res = @client.get build_path("/nodes#{param_str}")
     model = Models::APIResponse(Models::Node).from_json res.body
     model.data.map &.attributes
+  rescue e : APIError
+    raise e
   end
 
   def get_node(node_id : Int64 | Int32 | String)
     res = @client.get build_path("/nodes/#{node_id}")
     Models::Data(Models::Node).from_json(res.body).attributes
+  rescue e : APIError
+    raise e
   end
 
   def get_allocations(node_id : Int64 | Int32 | String)
     result = @client.get(build_path("/nodes/#{node_id}/allocations"))
     allocs = Models::APIResponse(Models::AppAllocation).from_json result.body
     allocs.data.map &.attributes
+  rescue e : APIError
+    raise e
   end
 end

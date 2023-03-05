@@ -19,6 +19,20 @@ describe Pterodactyl::ApplicationSdk do
     user.should be_a(Pterodactyl::Models::User)
   end
 
+  it "raises an error on invalid email" do
+    WebMockWrapper.application_stub(:post, "create_user_failure.json", "/users", 422)
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    expect_raises(Pterodactyl::APIError) do
+      app.create_user(
+        email: "example10example.com",
+        username: "exampleuser",
+        first_name: "Example",
+        last_name: "User"
+      )
+    end
+  end
+
   it "get list of eggs" do
     WebMockWrapper.application_stub(:get, "get_egg_list.json", "/nests/1/eggs")
 
@@ -39,6 +53,16 @@ describe Pterodactyl::ApplicationSdk do
     egg.author.should eq("parker@pterodactyl.io")
     egg.should be_a(Pterodactyl::Models::Egg)
   end
+
+  it "raises a not found error on unavailable resource" do
+    WebMockWrapper.application_stub(:get, "404_error.json", "/nests/404/eggs", 404)
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    expect_raises(Pterodactyl::APIError, /The requested resource could not be found on the server/) do
+      app.get_eggs(404)
+    end
+  end
+
 
   it "retrieves list of nodes" do
     WebMockWrapper.application_stub(:get, "get_nodes.json", "/nodes")

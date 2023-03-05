@@ -63,7 +63,6 @@ describe Pterodactyl::ApplicationSdk do
     end
   end
 
-
   it "retrieves list of nodes" do
     WebMockWrapper.application_stub(:get, "get_nodes.json", "/nodes")
 

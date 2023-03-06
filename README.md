@@ -49,6 +49,9 @@ These methods are scoped to the user accessing them (i.e. if you query for serve
 - backups => delete backup
 - settings => rename server
 - settings => reinstall server
+- startup
+  - list variables
+  - update variable
 - get server details
 - get console details
 - get resource usage

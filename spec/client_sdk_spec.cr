@@ -62,4 +62,25 @@ describe Pterodactyl::ClientSdk do
     usage.resources.memory_bytes.should eq(2509082624)
     usage.should be_a(Pterodactyl::Models::ResourceUsage)
   end
+
+  it "update startup variable" do
+    WebMockWrapper.client_stub(:put, "update_variable_success.json", "/servers/78095333/startup/variable")
+    new_var_value = "Test edit name"
+
+    client = Pterodactyl::ClientSdk.new(host, "client_token")
+    var = client.update_variable("78095333", "SERVER_NAME", new_var_value)
+
+    var.server_value.should eq(new_var_value)
+    var.should be_a(Pterodactyl::Models::EggVariable)
+  end
+
+  it "list startup variables" do
+    WebMockWrapper.client_stub(:get, "variable_list.json", "/servers/78095333/startup")
+
+    client = Pterodactyl::ClientSdk.new(host, "client_token")
+    vars = client.get_variables("78095333")
+
+    vars.size.should eq(3)
+    vars.should be_a(Array(Pterodactyl::Models::EggVariable))
+  end
 end

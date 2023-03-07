@@ -78,59 +78,59 @@ module Pterodactyl
       raise e
     end
 
-    def get_backups(server : Models::ClientServer) : Models::Backup
-      res = @client.get build_path("/servers/#{server.identifier}/backups")
+    def get_backups(server_identifier : String) : Array(Models::Backup)
+      res = @client.get build_path("/servers/#{server_identifier}/backups")
       backups = Models::APIResponse(Models::Backup).from_json res.body
       backups.data.map &.attributes
     rescue e : APIError
       raise e
     end
 
-    def create_backup(server : Models::ClientServer) : Models::Backup
-      res = @client.post build_path("/servers/#{server.identifier}/backups")
-      backup = Models::Backup.from_json res.body
+    def create_backup(server_identifier : String) : Models::Backup
+      res = @client.post build_path("/servers/#{server_identifier}/backups")
+      backup = Models::Data(Models::Backup).from_json res.body
       backup.attributes
     rescue e : APIError
       raise e
     end
 
-    def get_backup_details(server : Models::ClientServer, backup_uuid : String) : Models::Backup
-      res = @client.get build_path("/servers/#{server.identifier}/backups/#{backup_uuid}")
-      backup = Models::Backup.from_json res.body
+    def get_backup(server_identifier : String, backup_uuid : String) : Models::Backup
+      res = @client.get build_path("/servers/#{server_identifier}/backups/#{backup_uuid}")
+      backup = Models::Data(Models::Backup).from_json res.body
       backup.attributes
     rescue e : APIError
       raise e
     end
 
-    def backup_download_url(server : Models::ClientServer, backup_uuid : String) : String
-      res = @client.get build_path("/servers/#{server.identifier}/backups/#{backup_uuid}/download")
+    def backup_download_url(server_identifier : String, backup_uuid : String) : String
+      res = @client.get build_path("/servers/#{server_identifier}/backups/#{backup_uuid}/download")
       backup = Models::Data(Models::BackupDownloadable).from_json res.body
-      backup.url
+      backup.attributes.url
     rescue e : APIError
       raise e
     end
 
-    def delete_backup(server : Models::ClientServer, backup_uuid : String) : Models::Backup
-      @client.delete build_path("/servers/#{server.identifier}/backups/#{backup_uuid}")
+    def delete_backup(server_identifier : String, backup_uuid : String)
+      @client.delete build_path("/servers/#{server_identifier}/backups/#{backup_uuid}")
     rescue e : APIError
       raise e
     end
 
-    def rename_server(server : Models::ClientServer, name : String)
+    def rename_server(server_identifier : String, name : String)
       payload = {"name" => name}
-      @client.post build_path("/servers/#{server.identifier}/settings/rename"), payload.to_json
+      @client.post build_path("/servers/#{server_identifier}/settings/rename"), payload.to_json
     rescue e : APIError
       raise e
     end
 
-    def reinstall_server(server : Models::ClientServer)
-      @client.post build_path("/servers/#{server.identifier}/settings/reinstall")
+    def reinstall_server(server_identifier : String)
+      @client.post build_path("/servers/#{server_identifier}/settings/reinstall")
     rescue e : APIError
       raise e
     end
 
-    def websocket_credentials(server : Models::ClientServer) : Models::WebsocketCredentials
-      res = @client.get build_path("/servers/#{server.identifier}/websocket")
+    def websocket_credentials(server_identifier : String) : Models::WebsocketCredentials
+      res = @client.get build_path("/servers/#{server_identifier}/websocket")
       creds = Models::APIResponse(Models::WebsocketCredentials).from_json res.body
       creds.data
     rescue e : APIError
@@ -145,9 +145,9 @@ module Pterodactyl
       raise e
     end
 
-    def send_command(server : Models::ClientServer, command : String)
+    def send_command(server_identifier : String, command : String)
       payload = {"command" => command}
-      @client.post build_path("/servers/#{server.identifier}/command"), payload.to_json
+      @client.post build_path("/servers/#{server_identifier}/command"), payload.to_json
     rescue e : APIError
       raise e
     end

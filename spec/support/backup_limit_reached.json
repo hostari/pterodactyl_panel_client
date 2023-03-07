@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "code": "TooManyBackupsException",
+      "status": "400",
+      "detail": "Cannot create a new backup, this server has reached its limit of 1 backups."
+    }
+  ]
+}

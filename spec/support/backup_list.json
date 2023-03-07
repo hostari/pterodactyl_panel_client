@@ -1,0 +1,30 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "backup",
+      "attributes": {
+        "uuid": "2ce190c6-b602-4ec8-b3fb-a7cbae47818f",
+        "is_successful": true,
+        "is_locked": false,
+        "name": "test",
+        "ignored_files": [],
+        "checksum": "sha1:qwertyuipoqq123",
+        "bytes": 1023624524,
+        "created_at": "2023-03-06T02:52:10+00:00",
+        "completed_at": "2023-03-06T02:52:43+00:00"
+      }
+    }
+  ],
+  "meta": {
+    "backup_count": 1,
+    "pagination": {
+      "total": 1,
+      "count": 1,
+      "per_page": 20,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": {}
+    }
+  }
+}

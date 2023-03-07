@@ -4,11 +4,13 @@ module Pterodactyl::Models
 
     getter uuid : String
     getter name : String
+    getter is_successful : Bool
+    getter is_locked : Bool
     getter ignored_files : Array(String)
-    getter sha256_hash : String
+    getter checksum : String?
     getter bytes : Int64
-    getter created_at : String
-    getter completed_at : String
+    getter created_at : Time
+    getter completed_at : Time?
   end
 
   struct BackupDownloadable

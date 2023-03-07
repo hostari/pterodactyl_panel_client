@@ -1,0 +1,14 @@
+{
+  "object": "backup",
+  "attributes": {
+    "uuid": "33f5ebbc-05b5-44a4-92ee-fbe4fed5a336",
+    "is_successful": true,
+    "is_locked": false,
+    "name": "Backup at 2023-03-07 02:16:18",
+    "ignored_files": [],
+    "checksum": "sha1:akfgjh20437",
+    "bytes": 1024356968,
+    "created_at": "2023-03-07T02:16:18+00:00",
+    "completed_at": "2023-03-07T02:16:58+00:00"
+  }
+}

@@ -133,9 +133,9 @@ class Pterodactyl::ApplicationSdk
   def delete_server(id : Int64 | Int32 | String, force : Bool = false)
     # returns a 204
     if force
-      @client.delete(build_path("/server/#{id}"))
+      @client.delete(build_path("/servers/#{id}/force"))
     else
-      @client.delete(build_path("/server/#{id}/force"))
+      @client.delete(build_path("/servers/#{id}"))
     end
   rescue e : APIError
     raise e

@@ -1,7 +1,7 @@
 require "./spec_helper"
 
 describe Pterodactyl::CreateServerRequest do
-  it "accepts other named arguments" do
+  it "create a server request" do
     req = Pterodactyl::CreateServerRequest.new(
       name: "test",
       user: 123,
@@ -14,11 +14,9 @@ describe Pterodactyl::CreateServerRequest do
       allocation: {
         "default" => 12,
       },
-      test: "option",
-      property_not_in_docs: "23"
     )
 
     req_obj = JSON.parse(req.as_json).as_h
-    req_obj["property_not_in_docs"].should eq("23")
+    req_obj["start_on_completion"].should eq(false)
   end
 end

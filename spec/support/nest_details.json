@@ -1,0 +1,12 @@
+{
+  "object": "nest",
+  "attributes": {
+    "id": 7,
+    "uuid": "6acd974d-19f6-491b-8874-b13502d6b646",
+    "author": "support@hostari.com",
+    "name": "Project Zomboid",
+    "description": null,
+    "created_at": "2023-02-20T04:49:30+00:00",
+    "updated_at": "2023-02-20T04:49:30+00:00"
+  }
+}

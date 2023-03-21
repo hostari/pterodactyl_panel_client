@@ -33,6 +33,30 @@ describe Pterodactyl::ApplicationSdk do
     end
   end
 
+  describe "Nests" do
+    it "retrieves a nest" do
+      WebMockWrapper.application_stub(:get, "nest_details.json", "/nests/7")
+
+      app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+      nest = app.get_nest(7)
+
+      nest.author.should eq("support@hostari.com")
+      nest.relationships.should be_nil
+      nest.should be_a(Pterodactyl::Models::Nest)
+    end
+
+    it "retrieves a nest with relationships" do
+      WebMockWrapper.application_stub(:get, "nest_details_with_relationship.json", "/nests/7?include=eggs,servers")
+
+      app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+      nest = app.get_nest(7, ["eggs", "servers"])
+
+      nest.relationships.try &.eggs.try &.size.should eq(1)
+      nest.relationships.try &.servers.try &.size.should eq(2)
+      nest.should be_a(Pterodactyl::Models::Nest)
+    end
+  end
+
   it "get list of eggs" do
     WebMockWrapper.application_stub(:get, "get_egg_list.json", "/nests/1/eggs")
 

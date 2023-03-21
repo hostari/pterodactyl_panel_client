@@ -22,6 +22,21 @@ module Pterodactyl::Models
     include JSON::Serializable
     include Server
 
+    module DataConverter
+      def self.from_json(parser) : Array(ApplicationServer)
+        json = JSON.build do |builder|
+          parser.read_raw(builder)
+        end
+
+        raw_response = APIResponse(ApplicationServer).from_json json
+        raw_response.data.map &.attributes
+      end
+
+      def self.to_json(value, builder)
+        builder.raw(value.to_s)
+      end
+    end
+
     getter id : Int64
     getter external_id : Int64?
     getter suspended : Bool

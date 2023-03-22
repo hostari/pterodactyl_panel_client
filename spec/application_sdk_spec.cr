@@ -75,6 +75,7 @@ describe Pterodactyl::ApplicationSdk do
       app = Pterodactyl::ApplicationSdk.new(host, "client_token")
       egg = app.get_egg(1, 1)
 
+      egg.docker_images.first_value.should eq("ghcr.io/pterodactyl/yolks:java_8")
       egg.author.should eq("parker@pterodactyl.io")
       egg.should be_a(Pterodactyl::Models::Egg)
     end

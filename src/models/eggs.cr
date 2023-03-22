@@ -12,7 +12,7 @@ module Pterodactyl::Models
     getter author : String
     getter description : String?
     getter features : Array(String)?
-    getter docker_images : JSON::Any
+    getter docker_images : Hash(String, String)
     getter startup : String
     getter config : Config
     getter script : Script

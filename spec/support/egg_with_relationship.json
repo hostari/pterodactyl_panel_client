@@ -1,0 +1,205 @@
+{
+  "object": "egg",
+  "attributes": {
+    "id": 19,
+    "uuid": "61b897b7-dd2e-4325-83bd-b492339e76ff",
+    "name": "Project Zomboid",
+    "nest": 7,
+    "author": "iamkubi@gmail.com",
+    "description": "Project Zomboid is an open world survival horror video game in alpha stage development by British and Canadian independent developer, The Indie Stone. The game is set in a post apocalyptic, zombie infested world where the player is challenged to survive for as long as possible before inevitably dying.",
+    "docker_image": "ghcr.io/parkervcp/games:source",
+    "docker_images": {
+      "ghcr.io/parkervcp/games:source": "ghcr.io/parkervcp/games:source"
+    },
+    "config": {
+      "files": {},
+      "startup": {
+        "done": "SERVER STARTED"
+      },
+      "stop": "quit",
+      "logs": [],
+      "file_denylist": [],
+      "extends": null
+    },
+    "startup": "startuip",
+    "script": {
+      "privileged": true,
+      "install": "install",
+      "entry": "bash",
+      "container": "ghcr.io/parkervcp/installers:debian",
+      "extends": null
+    },
+    "created_at": "2023-02-20T04:50:09+00:00",
+    "updated_at": "2023-03-17T08:50:30+00:00",
+    "relationships": {
+      "nest": {
+        "object": "nest",
+        "attributes": {
+          "id": 7,
+          "uuid": "6acd974d-19f6-491b-8874-b13502d6b646",
+          "author": "support@hostari.com",
+          "name": "Project Zomboid",
+          "description": null,
+          "created_at": "2023-02-20T04:49:30+00:00",
+          "updated_at": "2023-02-20T04:49:30+00:00"
+        }
+      },
+      "servers": {
+        "object": "list",
+        "data": [
+          {
+            "object": "server",
+            "attributes": {
+              "id": 46,
+              "external_id": null,
+              "uuid": "ce9c07e1-b986-43fc-9e88-a26e3a65963a",
+              "identifier": "ce9c07e1",
+              "name": "Sandbox-PZ",
+              "description": "Sandbox-PZ",
+              "status": null,
+              "suspended": false,
+              "limits": {
+                "memory": 4000,
+                "swap": 0,
+                "disk": 12000,
+                "io": 500,
+                "cpu": 0,
+                "threads": null,
+                "oom_disabled": true
+              },
+              "feature_limits": {
+                "databases": 0,
+                "allocations": 0,
+                "backups": 2
+              },
+              "user": 6,
+              "node": 1,
+              "allocation": 6,
+              "nest": 7,
+              "egg": 19,
+              "container": {
+                "startup_command": "/home/container/start-server.sh -port {{SERVER_PORT}} -steamport1 {{STEAM_PORT}} -cachedir=/home/container/.cache -servername \"{{SERVER_NAME}}\" -adminusername {{ADMIN_USER}} -adminpassword \"{{ADMIN_PASSWORD}}\"",
+                "image": "ghcr.io/parkervcp/games:source",
+                "installed": 1,
+                "environment": {
+                  "SERVER_NAME": "Pterodactyl",
+                  "ADMIN_USER": "admin",
+                  "ADMIN_PASSWORD": "admin",
+                  "STEAM_PORT": "8766",
+                  "MAX_PLAYERS": "10",
+                  "SRCDS_APPID": "380870",
+                  "SRCDS_BETAID": "",
+                  "AUTO_UPDATE": "0",
+                  "STARTUP": "/home/container/start-server.sh -port {{SERVER_PORT}} -steamport1 {{STEAM_PORT}} -cachedir=/home/container/.cache -servername \"{{SERVER_NAME}}\" -adminusername {{ADMIN_USER}} -adminpassword \"{{ADMIN_PASSWORD}}\"",
+                  "P_SERVER_LOCATION": "tms-dfw",
+                  "P_SERVER_UUID": "ce9c07e1-b986-43fc-9e88-a26e3a65963a",
+                  "P_SERVER_ALLOCATION_LIMIT": 0
+                }
+              },
+              "updated_at": "2023-03-03T09:53:32+00:00",
+              "created_at": "2023-03-02T07:41:03+00:00"
+            }
+          },
+          {
+            "object": "server",
+            "attributes": {
+              "id": 57,
+              "external_id": null,
+              "uuid": "12af66ae-9bfa-4bf0-ac74-42612a57b6c4",
+              "identifier": "12af66ae",
+              "name": "Sadnbox-PZ-udp",
+              "description": "added default udp port 16262",
+              "status": null,
+              "suspended": false,
+              "limits": {
+                "memory": 8000,
+                "swap": 0,
+                "disk": 12000,
+                "io": 500,
+                "cpu": 0,
+                "threads": null,
+                "oom_disabled": true
+              },
+              "feature_limits": {
+                "databases": 0,
+                "allocations": 0,
+                "backups": 0
+              },
+              "user": 7,
+              "node": 1,
+              "allocation": 12,
+              "nest": 7,
+              "egg": 19,
+              "container": {
+                "startup_command": "startup",
+                "image": "ghcr.io/parkervcp/games:source",
+                "installed": 1,
+                "environment": {
+                  "SERVER_NAME": "Pterodactyl",
+                  "ADMIN_USER": "admin",
+                  "ADMIN_PASSWORD": "password",
+                  "STEAM_PORT": "8766",
+                  "MAX_PLAYERS": "10",
+                  "SRCDS_APPID": "380870",
+                  "SRCDS_BETAID": "",
+                  "AUTO_UPDATE": "0",
+                  "STARTUP": "start",
+                  "P_SERVER_LOCATION": "tms-dfw",
+                  "P_SERVER_UUID": "12af66ae-9bfa-4bf0-ac74-42612a57b6c4",
+                  "P_SERVER_ALLOCATION_LIMIT": 0
+                }
+              },
+              "updated_at": "2023-03-17T09:00:51+00:00",
+              "created_at": "2023-03-17T08:42:37+00:00"
+            }
+          }
+        ]
+      },
+      "config": {
+        "object": "null_resource",
+        "attributes": null
+      },
+      "script": {
+        "object": "null_resource",
+        "attributes": null
+      },
+      "variables": {
+        "object": "list",
+        "data": [
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "id": 125,
+              "egg_id": 19,
+              "name": "Server Name",
+              "description": "The internal server name used for save/ config files.",
+              "env_variable": "SERVER_NAME",
+              "default_value": "Pterodactyl",
+              "user_viewable": true,
+              "user_editable": true,
+              "rules": "required|alpha_num|max:64",
+              "created_at": "2023-02-20T04:50:09.000000Z",
+              "updated_at": "2023-02-20T04:50:09.000000Z"
+            }
+          },
+          {
+            "object": "egg_variable",
+            "attributes": {
+              "id": 126,
+              "egg_id": 19,
+              "name": "Admin Username",
+              "description": "Username for the admin account",
+              "env_variable": "ADMIN_USER",
+              "default_value": "admin",
+              "user_viewable": true,
+              "user_editable": true,
+              "rules": "required|string|max:20",
+              "created_at": "2023-02-20T04:50:09.000000Z",
+              "updated_at": "2023-02-20T04:50:09.000000Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

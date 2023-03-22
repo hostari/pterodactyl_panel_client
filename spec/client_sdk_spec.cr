@@ -117,7 +117,7 @@ describe Pterodactyl::ClientSdk do
     var = client.update_variable("78095333", "SERVER_NAME", new_var_value)
 
     var.server_value.should eq(new_var_value)
-    var.should be_a(Pterodactyl::Models::EggVariable)
+    var.should be_a(Pterodactyl::Models::ClientServer::EggVariable)
   end
 
   it "list startup variables" do
@@ -126,6 +126,6 @@ describe Pterodactyl::ClientSdk do
     vars = client.get_variables("78095333")
 
     vars.size.should eq(3)
-    vars.should be_a(Array(Pterodactyl::Models::EggVariable))
+    vars.should be_a(Array(Pterodactyl::Models::ClientServer::EggVariable))
   end
 end

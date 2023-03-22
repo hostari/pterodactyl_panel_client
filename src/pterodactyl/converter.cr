@@ -15,5 +15,20 @@ module Pterodactyl::Converter
         builder.raw(value.to_s)
       end
     end
+
+    module Converter
+      def self.from_json(parser) : {{@type.name.id}}
+        json = JSON.build do |builder|
+          parser.read_raw(builder)
+        end
+
+        raw_response = Data({{@type.name.id}}).from_json json
+        raw_response.attributes
+      end
+
+      def self.to_json(value, builder)
+        builder.raw(value.to_s)
+      end
+    end
   end
 end

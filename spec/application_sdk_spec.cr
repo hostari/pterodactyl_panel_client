@@ -57,25 +57,37 @@ describe Pterodactyl::ApplicationSdk do
     end
   end
 
-  it "get list of eggs" do
-    WebMockWrapper.application_stub(:get, "get_egg_list.json", "/nests/1/eggs")
+  describe "Eggs" do
+    it "get list of eggs" do
+      WebMockWrapper.application_stub(:get, "get_egg_list.json", "/nests/1/eggs")
 
-    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
-    eggs = app.get_eggs(1)
+      app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+      eggs = app.get_eggs(1)
 
-    eggs.size.should eq(5)
-    eggs[0].name.should eq("Paper")
-    eggs.should be_a(Array(Pterodactyl::Models::Egg))
-  end
+      eggs.size.should eq(5)
+      eggs[0].name.should eq("Paper")
+      eggs.should be_a(Array(Pterodactyl::Models::Egg))
+    end
 
-  it "get egg" do
-    WebMockWrapper.application_stub(:get, "get_egg.json", "/nests/1/eggs/1")
+    it "get egg" do
+      WebMockWrapper.application_stub(:get, "get_egg.json", "/nests/1/eggs/1")
 
-    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
-    egg = app.get_egg(1, 1)
+      app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+      egg = app.get_egg(1, 1)
 
-    egg.author.should eq("parker@pterodactyl.io")
-    egg.should be_a(Pterodactyl::Models::Egg)
+      egg.author.should eq("parker@pterodactyl.io")
+      egg.should be_a(Pterodactyl::Models::Egg)
+    end
+
+    it "retrieves an egg with relationships" do
+      WebMockWrapper.application_stub(:get, "egg_with_relationship.json", "/nests/7/eggs/19?include=nest,servers,variables")
+
+      app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+      egg = app.get_egg(19, 7, ["nest", "servers", "variables"])
+
+      egg.relationships.try &.nest.try &.name.should eq("Project Zomboid")
+      egg.should be_a(Pterodactyl::Models::Egg)
+    end
   end
 
   it "raises a not found error on unavailable resource" do

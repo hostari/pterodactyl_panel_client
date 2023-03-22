@@ -18,6 +18,20 @@ module Pterodactyl::Models
     getter script : Script
     getter created_at : Time
     getter updated_at : Time
+    getter relationships : Relationships?
+
+    struct Relationships
+      include JSON::Serializable
+
+      @[JSON::Field(converter: Pterodactyl::Models::ApplicationServer::DataConverter)]
+      getter servers : Array(ApplicationServer)?
+      @[JSON::Field(converter: Pterodactyl::Models::Nest::Converter)]
+      getter nest : Nest?
+      # getter config : Array(ApplicationServer)
+      @[JSON::Field(converter: Pterodactyl::Models::Variable::DataConverter)]
+      getter variables : Array(Variable)?
+      # getter script : Array(ApplicationServer)
+    end
   end
 
   struct Config
@@ -38,5 +52,14 @@ module Pterodactyl::Models
     getter entry : String?
     getter container : String?
     getter extends : Int64?
+  end
+
+  struct Variable
+    include JSON::Serializable
+    include BaseEggVariable
+    include Pterodactyl::Converter
+
+    getter user_viewable : Bool
+    getter user_editable : Bool
   end
 end

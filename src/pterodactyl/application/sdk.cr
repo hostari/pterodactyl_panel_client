@@ -167,8 +167,11 @@ class Pterodactyl::ApplicationSdk
     raise e
   end
 
-  def get_egg(egg_id : Int64 | Int32 | String, nest_id : Int32 | Int64 | String)
-    result = @client.get(build_path("/nests/#{nest_id}/eggs/#{egg_id}"))
+  def get_egg(egg_id : Int64 | Int32 | String, nest_id : Int32 | Int64 | String, relationships : Array(String) = [] of String)
+    params = ""
+    params = "?include=#{relationships.join(",")}" unless relationships.empty?
+
+    result = @client.get(build_path("/nests/#{nest_id}/eggs/#{egg_id}#{params}"))
     Models::Data(Models::Egg).from_json(result.body).attributes
   rescue e : APIError
     raise e

@@ -159,18 +159,18 @@ module Pterodactyl
       raise e
     end
 
-    def update_variable(server_identifier : String, key : String, value : String) : Pterodactyl::Models::EggVariable
+    def update_variable(server_identifier : String, key : String, value : String) : Pterodactyl::Models::ClientServer::EggVariable
       payload = {"key" => key, "value" => value}
       res = @client.put build_path("/servers/#{server_identifier}/startup/variable"), payload.to_json
-      variable = Models::Data(Models::EggVariable).from_json res.body
+      variable = Models::Data(Models::ClientServer::EggVariable).from_json res.body
       variable.attributes
     rescue e : APIError
       raise e
     end
 
-    def get_variables(server_identifier : String) : Array(Pterodactyl::Models::EggVariable)
+    def get_variables(server_identifier : String) : Array(Models::ClientServer::EggVariable)
       res = @client.get build_path("/servers/#{server_identifier}/startup")
-      variables = Models::APIResponse(Models::EggVariable).from_json res.body
+      variables = Models::APIResponse(Models::ClientServer::EggVariable).from_json res.body
       variables.data.map &.attributes
     rescue e : APIError
       raise e

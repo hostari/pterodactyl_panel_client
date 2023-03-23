@@ -203,4 +203,12 @@ class Pterodactyl::ApplicationSdk
   rescue e : APIError
     raise e
   end
+
+  def create_allocation(node_id : Int64 | Int32 | String, ip : String, ports : Array(String))
+    payload = {"ip" => ip, "ports" => ports}
+    # 204 response
+    @client.post(build_path("/nodes/#{node_id}/allocations"), payload.to_json)
+  rescue e : APIError
+    raise e
+  end
 end

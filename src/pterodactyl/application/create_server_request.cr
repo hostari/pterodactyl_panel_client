@@ -6,9 +6,9 @@ module Pterodactyl
     property docker_image : String
     property startup : String
     property environment : Hash(String, String)
-    property limits : Hash(String, Int32 | Int64)
-    property feature_limits : Hash(String, Int32 | Int64)
-    property allocation : Hash(String, Int32 | Int64)
+    property limits : Hash(String, Int32)
+    property feature_limits : Hash(String, Int32)
+    property allocation : Hash(String, Int32)
     property start_on_completion : Bool
     property skip_scripts : Bool
 

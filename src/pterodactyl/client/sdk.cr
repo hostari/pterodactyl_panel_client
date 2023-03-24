@@ -38,8 +38,8 @@ module Pterodactyl
       raise e
     end
 
-    def get_allocations(identifier : String) : Array(Models::ClientAllocation)
-      res = @client.get build_path("/servers/#{identifier}/network/allocations")
+    def get_allocations(server_identifier : String) : Array(Models::ClientAllocation)
+      res = @client.get build_path("/servers/#{server_identifier}/network/allocations")
       allocations = Models::APIResponse(Models::ClientAllocation).from_json res.body
 
       allocations.data.map &.attributes
@@ -47,33 +47,33 @@ module Pterodactyl
       raise e
     end
 
-    def assign_allocation(server : Models::ClientServer) : Models::ClientAllocation
-      res = @client.post build_path("/servers/#{server.identifier}/network/allocations")
+    def assign_allocation(server_identifier : String) : Models::ClientAllocation
+      res = @client.post build_path("/servers/#{server_identifier}/network/allocations")
       allocation = Models::Data(Models::ClientAllocation).from_json res.body
       allocation.attributes
     rescue e : APIError
       raise e
     end
 
-    def set_allocation_notes(server : Models::ClientServer, notes : String, allocation_id : Int64) : Models::ClientAllocation
+    def set_allocation_notes(server_identifier : String, notes : String, allocation_id : Int64) : Models::ClientAllocation
       payload = {"notes" => notes}
-      res = @client.post base_path("/servers/#{server.identifier}/network/allocations/#{allocation_id}"), payload.to_json
+      res = @client.post base_path("/servers/#{server_identifier}/network/allocations/#{allocation_id}"), payload.to_json
       allocation = Models::Data(Models::ClientAllocation).from_json res.body
       allocation.attributes
     rescue e : APIError
       raise e
     end
 
-    def set_primary_allocation(server : Models::ClientServer, allocation_id : Int64) : Models::ClientAllocation
-      res = @client.post base_path("/servers/#{server.identifier}/network/allocations/#{allocation_id}/primary")
+    def set_primary_allocation(server_identifier : String, allocation_id : Int64) : Models::ClientAllocation
+      res = @client.post base_path("/servers/#{server_identifier}/network/allocations/#{allocation_id}/primary")
       allocation = Models::Data(Models::ClientAllocation).from_json res.body
       allocation.attributes
     rescue e : APIError
       raise e
     end
 
-    def unassign_allocation(server : Models::ClientServer, allocation_id : Int64)
-      @client.delete base_path("/servers/#{server.identifier}/network/allocations/#{allocation_id}")
+    def unassign_allocation(server_identifier : String, allocation_id : Int64)
+      @client.delete base_path("/servers/#{server_identifier}/network/allocations/#{allocation_id}")
     rescue e : APIError
       raise e
     end

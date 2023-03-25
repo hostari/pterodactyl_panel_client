@@ -47,8 +47,20 @@ module Pterodactyl
       raise e
     end
 
-    def assign_allocation(server_identifier : String) : Models::ClientAllocation
+    def assign_random_allocation(server_identifier : String) : Models::ClientAllocation
       res = @client.post build_path("/servers/#{server_identifier}/network/allocations")
+      allocation = Models::Data(Models::ClientAllocation).from_json res.body
+      allocation.attributes
+    rescue e : APIError
+      raise e
+    end
+
+    ##
+    # Hostari-specific API route
+    #
+    def assign_allocation(server_identifier : String, allocation_id : Int64) : Models::ClientAllocation
+      payload = {"allocation_id" => allocation_id}
+      res = @client.post build_path("/servers/#{server_identifier}/network/allocations/assign"), payload.to_json
       allocation = Models::Data(Models::ClientAllocation).from_json res.body
       allocation.attributes
     rescue e : APIError

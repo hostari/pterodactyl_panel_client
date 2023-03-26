@@ -28,7 +28,7 @@
       "allocations": 5,
       "backups": 2
     },
-    "status": null,
+    "status": "installing",
     "is_suspended": false,
     "is_installing": false,
     "is_transferring": false,

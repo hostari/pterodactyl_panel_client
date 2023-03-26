@@ -28,6 +28,7 @@ describe Pterodactyl::ClientSdk do
     server = client.get_server_details("1a7ce997")
 
     server.description.should eq("Matt from Wii Sports")
+    server.status.should eq("installing")
     server.variables[0].env_variable.should eq("SERVER_NAME")
     server.should be_a(Pterodactyl::Models::ClientServer)
   end

@@ -14,6 +14,7 @@ module Pterodactyl::Models
     include JSON::Serializable
     include Server
     getter node : String
+    getter status : String?
     @[JSON::Field(root: "variables", key: "relationships", converter: Pterodactyl::Models::ClientServer::EggVariable::DataConverter)]
     getter variables : Array(EggVariable)
 

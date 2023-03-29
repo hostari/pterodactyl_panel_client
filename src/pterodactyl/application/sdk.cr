@@ -211,4 +211,11 @@ class Pterodactyl::ApplicationSdk
   rescue e : APIError
     raise e
   end
+
+  def delete_allocation(node_id : Int64 | Int32 | String, allocation_id : Int64 | Int32 | String)
+    # 204 response
+    @client.delete(build_path("/nodes/#{node_id}/allocations/#{allocation_id}"))
+  rescue e : APIError
+    raise e
+  end
 end

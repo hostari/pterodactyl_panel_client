@@ -1,0 +1,28 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "allocation",
+      "attributes": {
+        "id": 133,
+        "ip": "209.236.114.150",
+        "alias": null,
+        "port": 10000,
+        "notes": null,
+        "assigned": false
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "total": 51,
+      "count": 1,
+      "per_page": 50,
+      "current_page": 2,
+      "total_pages": 2,
+      "links": {
+        "previous": "http://137.184.187.126/api/application/nodes/1/allocations?page=1"
+      }
+    }
+  }
+}

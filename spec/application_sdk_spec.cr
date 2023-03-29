@@ -121,12 +121,22 @@ describe Pterodactyl::ApplicationSdk do
   end
 
   it "retrieves allocations given a node" do
-    WebMockWrapper.application_stub(:get, "get_app_allocations.json", "/nodes/1/allocations")
+    WebMockWrapper.application_stub(:get, "get_app_allocations.json", "/nodes/1/allocations?page=1")
 
     app = Pterodactyl::ApplicationSdk.new(host, "client_token")
     allocs = app.get_allocations(1)
 
     allocs[0].port.should eq(40051)
+    allocs.should be_a(Array(Pterodactyl::Models::AppAllocation))
+  end
+
+  it "retrieves page 2" do
+    WebMockWrapper.application_stub(:get, "get_app_allocations_page_2.json", "/nodes/1/allocations?page=2")
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    allocs = app.get_allocations(1, 2)
+
+    allocs[0].port.should eq(10000)
     allocs.should be_a(Array(Pterodactyl::Models::AppAllocation))
   end
 end

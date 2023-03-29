@@ -196,8 +196,8 @@ class Pterodactyl::ApplicationSdk
     raise e
   end
 
-  def get_allocations(node_id : Int64 | Int32 | String)
-    result = @client.get(build_path("/nodes/#{node_id}/allocations"))
+  def get_allocations(node_id : Int64 | Int32 | String, page : Int64 = 1)
+    result = @client.get(build_path("/nodes/#{node_id}/allocations?page=#{page}"))
     allocs = Models::APIResponse(Models::AppAllocation).from_json result.body
     allocs.data.map &.attributes
   rescue e : APIError

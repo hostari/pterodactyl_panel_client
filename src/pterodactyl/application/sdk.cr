@@ -141,6 +141,13 @@ class Pterodactyl::ApplicationSdk
     raise e
   end
 
+  def update_server_build(id : Int64 | Int32 | String, body : Body::UpdateServerBuild)
+    result = @client.patch(build_path("/servers/#{id}/build"), body: body.to_json)
+    Models::Data(Models::ApplicationServer).from_json(result.body).attributes
+  rescue e : APIError
+    raise e
+  end
+
   def list_nests : Array(Models::Nest)
     result = @client.get(build_path("/nests"))
     nests = Models::APIResponse(Models::Nest).from_json result.body

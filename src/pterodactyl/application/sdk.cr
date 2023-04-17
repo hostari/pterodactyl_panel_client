@@ -89,14 +89,8 @@ class Pterodactyl::ApplicationSdk
     raise e
   end
 
-  def update_server_startup(
-    startup : String,
-    egg : Int32,
-    image : String,
-    skip_scripts : Bool,
-    environment : Hash(String, String) = Hash.new
-  )
-    result = @client.patch(build_path("/servers/#{id}/startup"), body: {startup: startup, egg: egg, image: image, skip_scripts: skip_scripts, environment: environment}.to_json)
+  def update_server_startup(id : String | Int32 | Int64, body : Body::UpdateServerStartup)
+    result = @client.patch(build_path("/servers/#{id}/startup"), body: body.to_json)
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes
   rescue e : APIError
     raise e

@@ -72,23 +72,6 @@ class Pterodactyl::ApplicationSdk
     raise e
   end
 
-  def update_server_build(
-    id : Int32 | Int64 | String,
-    allocation : Int32,
-    feature_limits : Hash(String, Int32),
-    memory : Int32 = nil,
-    swap : Int32 = nil,
-    disk : Int32 = nil,
-    io : Int32 = nil,
-    cpu : Int32 = nil,
-    threads : String? = nil
-  )
-    result = @client.patch(build_path("/servers/#{id}/build"), body: {id: id.to_i64, allocation: allocation, feature_limits: feature_limits, memory: memory, swap: swap, disk: disk, io: io, cpu: cpu, threads: threads}.to_json)
-    Models::Data(Models::ApplicationServer).from_json(result.body).attributes
-  rescue e : APIError
-    raise e
-  end
-
   def update_server_startup(id : String | Int32 | Int64, body : Body::UpdateServerStartup)
     result = @client.patch(build_path("/servers/#{id}/startup"), body: body.to_json)
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes

@@ -34,6 +34,7 @@ module Pterodactyl::Models
 
     getter id : Int64
     getter external_id : Int64?
+    getter status : String
     getter suspended : Bool
     @[JSON::Field(key: "node")]
     getter node_id : Int64

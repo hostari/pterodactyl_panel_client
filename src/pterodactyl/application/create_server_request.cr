@@ -8,7 +8,7 @@ module Pterodactyl
     property environment : Hash(String, String)
     property limits : Hash(String, Int32)
     property feature_limits : Hash(String, Int32)
-    property allocation : Hash(String, Int32)
+    property allocation : NamedTuple(default: Int32, additional: Array(Int32))
     property start_on_completion : Bool
     property skip_scripts : Bool
 
@@ -21,7 +21,7 @@ module Pterodactyl
       @environment : Hash(String, String),
       @limits : Hash(String, Int32),
       @feature_limits : Hash(String, Int32),
-      @allocation : Hash(String, Int32),
+      @allocation : NamedTuple(default: Int32, additional: Array(Int32)),
       @start_on_completion : Bool = false,
       @skip_scripts : Bool = false
     )

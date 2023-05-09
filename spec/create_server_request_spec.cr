@@ -4,15 +4,16 @@ describe Pterodactyl::CreateServerRequest do
   it "create a server request" do
     req = Pterodactyl::CreateServerRequest.new(
       name: "test",
-      user: 123,
-      egg: 1,
+      user: 123.to_i64,
+      egg: 1.to_i64,
       docker_image: "image",
       startup: "start",
       environment: {"env" => "val"},
       limits: {"lim" => 1},
       feature_limits: {"feat" => 3},
       allocation: {
-        "default" => 12,
+        default:    12,
+        additional: [] of Int32,
       },
     )
 

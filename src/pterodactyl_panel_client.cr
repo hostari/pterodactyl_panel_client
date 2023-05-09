@@ -2,7 +2,7 @@ require "json"
 require "http/client"
 
 class PterodactylPanelClient
-  VERSION = "0.2.5"
+  VERSION = "0.3.5"
 end
 
 require "./pterodactyl/**"

@@ -15,9 +15,10 @@ class Pterodactyl::ApplicationSdk
     email : String,
     username : String,
     first_name : String,
-    last_name : String
+    last_name : String,
+    password : String
   )
-    result = @client.post(build_path("/users"), {email: email, username: username, first_name: first_name, last_name: last_name}.to_json)
+    result = @client.post(build_path("/users"), {email: email, username: username, first_name: first_name, last_name: last_name, password: password}.to_json)
     normalized_data = Models::Data(Models::User).from_json(result.body)
     user = normalized_data.attributes
     if meta = normalized_data.meta

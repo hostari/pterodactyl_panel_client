@@ -11,7 +11,8 @@ describe Pterodactyl::ApplicationSdk do
       email: "example10@example.com",
       username: "exampleuser",
       first_name: "Example",
-      last_name: "User"
+      last_name: "User",
+      password: "testpass"
     )
 
     user.username.should eq("exampleuser")
@@ -28,7 +29,8 @@ describe Pterodactyl::ApplicationSdk do
         email: "example10example.com",
         username: "exampleuser",
         first_name: "Example",
-        last_name: "User"
+        last_name: "User",
+        password: "testpass"
       )
     end
   end

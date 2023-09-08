@@ -6,7 +6,7 @@ module Pterodactyl
       if @use_content
         @client = HttpClient.new(@host, @client_token)
       else
-        @client = HttpClient.new(@host, @client_token)
+        @client = HttpClient.new(@host, @client_token, false)
       end
     end
 

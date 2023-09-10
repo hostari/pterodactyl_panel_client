@@ -2,8 +2,12 @@ module Pterodactyl
   class ClientSdk
     getter host : String
 
-    def initialize(@host : String, @client_token : String)
-      @client = HttpClient.new(@host, @client_token)
+    def initialize(@host : String, @client_token : String, @use_content : Bool = true)
+      if @use_content
+        @client = HttpClient.new(@host, @client_token)
+      else
+        @client = HttpClient.new(@host, @client_token, false)
+      end
     end
 
     def get_servers : Array(Models::ClientServer)
@@ -184,6 +188,27 @@ module Pterodactyl
       res = @client.get build_path("/servers/#{server_identifier}/startup")
       variables = Models::APIResponse(Models::ClientServer::EggVariable).from_json res.body
       variables.data.map &.attributes
+    rescue e : APIError
+      raise e
+    end
+
+    def get_fwl_content(server_identifier : String, world_name : String)
+      path = "/servers/#{server_identifier}/files/contents?file="
+      file_path = "/.config/unity3d/IronGate/Valheim/worlds_local/#{world_name}.fwl"
+      uri_encoded_path = URI.encode_path_segment(file_path)
+      res = @client.get build_path("#{path}#{uri_encoded_path}")
+      res.body
+    rescue e : APIError
+      raise e
+    end
+
+    def write_fwl_content(server_identifier : String, world_name : String, body : String)
+      path = "/servers/#{server_identifier}/files/write?file="
+      file_path = "/.config/unity3d/IronGate/Valheim/worlds_local/#{world_name}.fwl"
+      decoded_string = Base64.decode(body)
+      text = String.new(decoded_string)
+      uri_encoded_path = URI.encode_path_segment(file_path)
+      @client.post build_path("#{path}#{uri_encoded_path}"), text
     rescue e : APIError
       raise e
     end

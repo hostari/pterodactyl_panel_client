@@ -38,12 +38,27 @@ module Pterodactyl
           .{{method.id}}(path, headers: @headers, body: body)
 
         if res.status_code >= 400
-          error = Models::ErrorList(Models::Error).from_json res.body
-          raise APIError.new(error.errors[0], res.status_code)
+          error = parse_error(res)
+          raise APIError.new(error, res.status_code, res.body)
         end
 
         res
       end
     {% end %}
+
+    private def parse_error(response : HTTP::Client::Response) : Models::Error
+      errors = Models::ErrorList(Models::Error).from_json(response.body).errors
+      errors.first? || fallback_error(response.status_code)
+    rescue
+      fallback_error(response.status_code)
+    end
+
+    private def fallback_error(status_code : Int32) : Models::Error
+      Models::Error.from_json({
+        "code"   => "InvalidErrorResponse",
+        "status" => status_code.to_s,
+        "detail" => "Panel returned HTTP #{status_code} with an invalid error response.",
+      }.to_json)
+    end
   end
 end

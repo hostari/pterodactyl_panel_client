@@ -118,6 +118,42 @@ describe Pterodactyl::ApplicationSdk do
     error.error.status_code.should eq("404")
   end
 
+  it "keeps the actual HTTP status when the response body is not JSON" do
+    WebMock.stub(:get, "#{WebMockWrapper::ROOT}/api/application/nests/502/eggs")
+      .to_return(status: 502, body: "<html>bad gateway</html>")
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    error = expect_raises(Pterodactyl::APIError) do
+      app.get_eggs(502)
+    end
+
+    error.http_status_code.should eq(502)
+    error.error.error_type.should eq("InvalidErrorResponse")
+    error.response_body.should eq("<html>bad gateway</html>")
+  end
+
+  it "keeps the actual HTTP status when the response has no error entries" do
+    WebMock.stub(:get, "#{WebMockWrapper::ROOT}/api/application/nests/504/eggs")
+      .to_return(status: 504, body: %({"errors":[]}))
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    error = expect_raises(Pterodactyl::APIError) do
+      app.get_eggs(504)
+    end
+
+    error.http_status_code.should eq(504)
+    error.error.error_type.should eq("InvalidErrorResponse")
+  end
+
+  it "preserves the original one-argument APIError constructor" do
+    parsed_error = Pterodactyl::Models::Error.from_json(
+      %({"code":"NotFoundHttpException","status":"404","detail":"Not found"})
+    )
+    error = Pterodactyl::APIError.new(parsed_error)
+
+    error.http_status_code.should be_nil
+  end
+
   it "retrieves list of nodes" do
     WebMockWrapper.application_stub(:get, "get_nodes.json", "/nodes")
 

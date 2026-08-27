@@ -16,7 +16,7 @@ class Pterodactyl::ApplicationSdk
     username : String,
     first_name : String,
     last_name : String,
-    password : String
+    password : String,
   )
     result = @client.post(build_path("/users"), {email: email, username: username, first_name: first_name, last_name: last_name, password: password}.to_json)
     normalized_data = Models::Data(Models::User).from_json(result.body)
@@ -65,7 +65,7 @@ class Pterodactyl::ApplicationSdk
     name : String,
     user : Int32,
     external_id : String? = nil,
-    description : String? = nil
+    description : String? = nil,
   ) : Models::ApplicationServer
     result = @client.patch(build_path("/servers/#{id}/details"), body: {id: id.to_i64, name: name, user: user, external_id: external_id, description: description}.to_json)
     Models::Data(Models::ApplicationServer).from_json(result.body).attributes

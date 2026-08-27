@@ -51,7 +51,9 @@ jobs:
         run: shards check || shards install --ignore-crystal-version
 
       - name: Crystal Ameba Linter
-        run: ./bin/ameba
+        run: |
+          (cd lint && shards install && shards build ameba)
+          ./lint/bin/ameba
         if: matrix.crystal_version == 'latest'
 
       - name: Run tests

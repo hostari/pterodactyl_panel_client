@@ -23,7 +23,7 @@ module Pterodactyl
       @feature_limits : Hash(String, Int32),
       @allocation : NamedTuple(default: Int32, additional: Array(Int32)),
       @start_on_completion : Bool = false,
-      @skip_scripts : Bool = false
+      @skip_scripts : Bool = false,
     )
     end
 

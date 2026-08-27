@@ -1,0 +1,23 @@
+# Preserve the lint baseline from Ameba 1.1 while allowing the linter itself
+# to run on current Crystal. Re-enable these rules in dedicated, API-reviewed
+# cleanup changes rather than changing public method names in a bug-fix release.
+Lint/SpecEqWithBoolOrNilLiteral:
+  Enabled: false
+
+Lint/WhitespaceAroundMacroExpression:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/QueryBoolMethods:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/VerboseNilType:
+  Enabled: false

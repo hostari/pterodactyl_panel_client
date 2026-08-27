@@ -99,9 +99,59 @@ describe Pterodactyl::ApplicationSdk do
     WebMockWrapper.application_stub(:get, "404_error.json", "/nests/404/eggs", 404)
 
     app = Pterodactyl::ApplicationSdk.new(host, "client_token")
-    expect_raises(Pterodactyl::APIError, /The requested resource could not be found on the server/) do
+    error = expect_raises(Pterodactyl::APIError, /The requested resource could not be found on the server/) do
       app.get_eggs(404)
     end
+
+    error.http_status_code.should eq(404)
+  end
+
+  it "keeps the actual HTTP status when the response body claims a different status" do
+    WebMockWrapper.application_stub(:get, "404_error.json", "/nests/503/eggs", 503)
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    error = expect_raises(Pterodactyl::APIError) do
+      app.get_eggs(503)
+    end
+
+    error.http_status_code.should eq(503)
+    error.error.status_code.should eq("404")
+  end
+
+  it "keeps the actual HTTP status when the response body is not JSON" do
+    WebMock.stub(:get, "#{WebMockWrapper::ROOT}/api/application/nests/502/eggs")
+      .to_return(status: 502, body: "<html>bad gateway</html>")
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    error = expect_raises(Pterodactyl::APIError) do
+      app.get_eggs(502)
+    end
+
+    error.http_status_code.should eq(502)
+    error.error.error_type.should eq("InvalidErrorResponse")
+    error.response_body.should eq("<html>bad gateway</html>")
+  end
+
+  it "keeps the actual HTTP status when the response has no error entries" do
+    WebMock.stub(:get, "#{WebMockWrapper::ROOT}/api/application/nests/504/eggs")
+      .to_return(status: 504, body: %({"errors":[]}))
+
+    app = Pterodactyl::ApplicationSdk.new(host, "client_token")
+    error = expect_raises(Pterodactyl::APIError) do
+      app.get_eggs(504)
+    end
+
+    error.http_status_code.should eq(504)
+    error.error.error_type.should eq("InvalidErrorResponse")
+  end
+
+  it "preserves the original one-argument APIError constructor" do
+    parsed_error = Pterodactyl::Models::Error.from_json(
+      %({"code":"NotFoundHttpException","status":"404","detail":"Not found"})
+    )
+    error = Pterodactyl::APIError.new(parsed_error)
+
+    error.http_status_code.should be_nil
   end
 
   it "retrieves list of nodes" do

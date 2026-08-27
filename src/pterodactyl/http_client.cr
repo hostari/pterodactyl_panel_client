@@ -39,7 +39,7 @@ module Pterodactyl
 
         if res.status_code >= 400
           error = Models::ErrorList(Models::Error).from_json res.body
-          raise APIError.new(error.errors[0])
+          raise APIError.new(error.errors[0], res.status_code)
         end
 
         res

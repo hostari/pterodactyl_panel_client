@@ -51,7 +51,7 @@
             "object": "server",
             "attributes": {
               "id": 46,
-              "external_id": null,
+              "external_id": "billing-invoice-3af2d103-910b-4a7e-8e03-f8f1556279ee",
               "uuid": "ce9c07e1-b986-43fc-9e88-a26e3a65963a",
               "identifier": "ce9c07e1",
               "name": "Sandbox-PZ",

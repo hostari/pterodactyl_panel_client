@@ -33,7 +33,9 @@ module Pterodactyl::Models
     include Pterodactyl::Converter
 
     getter id : Int64
-    getter external_id : Int64?
+    # Pterodactyl accepts arbitrary strings for application server external IDs.
+    # Keep numeric IDs compatible with older callers and persisted servers.
+    getter external_id : String | Int64 | Nil
     getter status : String?
     getter suspended : Bool
     @[JSON::Field(key: "node")]

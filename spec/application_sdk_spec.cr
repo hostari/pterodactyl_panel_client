@@ -88,6 +88,8 @@ describe Pterodactyl::ApplicationSdk do
       app = Pterodactyl::ApplicationSdk.new(host, "client_token")
       egg = app.get_egg(19, 7, ["nest", "servers", "variables"])
 
+      egg.relationships.try(&.servers.try(&.first.external_id)).should eq("billing-invoice-3af2d103-910b-4a7e-8e03-f8f1556279ee")
+
       egg.relationships.try &.nest.try &.name.should eq("Project Zomboid")
       egg.should be_a(Pterodactyl::Models::Egg)
     end

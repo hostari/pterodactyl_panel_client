@@ -1,0 +1,13 @@
+name: pterodactyl_panel_client_lint
+version: 0.1.0
+
+crystal: ~> 1.19
+
+targets:
+  ameba:
+    main: lib/ameba/src/cli.cr
+
+dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: "1.7.0"
